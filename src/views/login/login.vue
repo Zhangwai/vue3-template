@@ -13,11 +13,33 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 // import { ElButton } from 'element-plus'
+import uuRequest from '@/service'
+
 export default defineComponent({
   // components: {
   //   ElButton
   // },
   setup() {
+    // TODELETE控制单独有拦截
+    uuRequest
+      .request({
+        url: '/home/multidata',
+        method: 'get',
+
+        interceptors: {
+          requestInterceptor: (config) => {
+            console.log('solo request')
+            return config
+          },
+          responseInterceptor: (res) => {
+            console.log('solo responese')
+            return res
+          }
+        }
+      })
+      .then((res) => {
+        console.log(res)
+      })
     return {}
   }
 })
