@@ -7,25 +7,30 @@
     "module": "esnext",
     // 严格模式
     "strict": true,
-    // 对jsx进行怎么样的处理
+    // 对jsx进行怎么样的处理 preserve:保留
     "jsx": "preserve",
-    // 辅助的导入功能
+    // 辅助的导入功能 会把pollify放到单独文件再通过import导入
     "importHelpers": true,
     // 按照node的方式解析模块
     "moduleResolution": "node",
-    // 跳过一些库的类型检测
+    // 跳过一些库的类型检测 (axiso -> 类型 / lodash -> @type/lodash)
+    // 要使用的话就单独导入 import {axiosResponse} from axios
     "skipLibCheck": true,
+    //es module 和 commonjs 混合使用
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     // 要不要生成映射文件
     "sourceMap": true,
-    // 文件路径在解析时,基本的url
+    // 文件路径在解析时,基本的url "."基于当前文件
     "baseUrl": ".",
     // 指定具体要解析使用的类型
     "types": ["webpack-env"],
+    // 路径解析 (类似于webpack的alias)
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "components/*": ["src/components/*"]
     },
+    // 可以指定在项目中可以使用哪里库的类型(Proxy/window/Document)
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
   // 哪些ts代码需要解析

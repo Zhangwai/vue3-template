@@ -1,5 +1,5 @@
 import axios from 'axios'
-import type { AxiosInstance, AxiosRequestConfig } from 'axios'
+import type { AxiosInstance } from 'axios'
 import type { UuRequestHook, UuRequestConfig } from './type'
 import { ElLoading } from 'element-plus'
 import { ILoadingInstance } from 'element-plus/lib/components/loading/src/loading.type'
@@ -64,7 +64,7 @@ class uuRequest {
     )
   }
 
-  request<T>(config: UuRequestConfig): Promise<T> {
+  request<T>(config: UuRequestConfig<T>): Promise<T> {
     return new Promise((resolve, reject) => {
       if (config.interceptors?.requestInterceptor) {
         config = config.interceptors.requestInterceptor(config)
@@ -89,11 +89,17 @@ class uuRequest {
         })
     })
   }
-  get<T>(url: string, config?: UuRequestConfig): Promise<T> {
+  get<T>(url: string, config?: UuRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, url, method: 'GET' })
   }
-  post<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
+  post<T>(url: string, config?: UuRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, url, method: 'POST' })
+  }
+  delete<T>(config: UuRequestConfig<T>): Promise<T> {
+    return this.request<T>({ ...config, method: 'DELETE' })
+  }
+  patch<T>(config: UuRequestConfig<T>): Promise<T> {
+    return this.request<T>({ ...config, method: 'PATCH' })
   }
 }
 export default uuRequest
