@@ -1,51 +1,28 @@
 <template>
-  <div>
-    login
-    <el-button>12312</el-button>
-    <el-button>Default</el-button>
-    <el-button type="primary">Primary</el-button>
-    <el-button type="success">Success</el-button>
-    <el-button type="info">Info</el-button>
-    <el-button type="warning">Warning</el-button>
-    <el-button type="danger">Danger</el-button>
+  <div class="login">
+    <login-panel></login-panel>
   </div>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
-// import { ElButton } from 'element-plus'
-import uuRequest from '@/service'
+import loginPanel from './cpns/login-panel.vue'
 
 export default defineComponent({
-  // components: {
-  //   ElButton
-  // },
+  components: {
+    loginPanel
+  },
   setup() {
-    // TODELETE控制单独有拦截
-    uuRequest
-      .request({
-        url: '/home/multidata',
-        method: 'get',
-
-        interceptors: {
-          requestInterceptor: (config) => {
-            console.log('solo request')
-            return config
-          },
-          responseInterceptor: (res) => {
-            console.log('solo responese')
-            return res
-          }
-        }
-      })
-      .then((res) => {
-        console.log(res)
-      })
     return {}
   }
 })
 </script>
-<style scoped>
-div {
-  color: aquamarine;
+<style scoped lang="less">
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background: url('../../assets/img/login-bg.svg');
 }
 </style>

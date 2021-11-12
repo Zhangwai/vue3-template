@@ -31,7 +31,6 @@ class uuRequest {
     //添加所有实例都有的全局拦截器
     this.instance.interceptors.request.use(
       (config) => {
-        console.log('全局拦截123')
         if (this.showLoading) {
           this.loading = ElLoading.service({
             lock: true,
@@ -49,7 +48,6 @@ class uuRequest {
     this.instance.interceptors.response.use(
       (res) => {
         this.loading?.close()
-        console.log('全局拦截456')
         return res
       },
       (err) => {
@@ -89,11 +87,11 @@ class uuRequest {
         })
     })
   }
-  get<T>(url: string, config?: UuRequestConfig<T>): Promise<T> {
-    return this.request<T>({ ...config, url, method: 'GET' })
+  get<T>(config?: UuRequestConfig<T>): Promise<T> {
+    return this.request<T>({ ...config, method: 'GET' })
   }
-  post<T>(url: string, config?: UuRequestConfig<T>): Promise<T> {
-    return this.request<T>({ ...config, url, method: 'POST' })
+  post<T>(config?: UuRequestConfig<T>): Promise<T> {
+    return this.request<T>({ ...config, method: 'POST' })
   }
   delete<T>(config: UuRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'DELETE' })

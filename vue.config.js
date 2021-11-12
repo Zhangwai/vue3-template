@@ -38,6 +38,15 @@ module.exports = {
         components: '@/components'
       }
     },
+    module: {
+      rules: [
+        {
+          test: /\.mjs$/,
+          include: /node_modules/,
+          type: 'javascript/auto'
+        }
+      ]
+    },
     plugins: [
       //手动
       // require('unplugin-element-plus/webpack')({
