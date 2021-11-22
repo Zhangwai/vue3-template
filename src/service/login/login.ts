@@ -18,11 +18,13 @@ export function accountLoginRequest(account: IAccount) {
 
 export function requestUserInfoById(id: number) {
   return uuRequest.get<IDataType>({
-    url: LoginAPI.LoginUserInfo + id
+    url: LoginAPI.LoginUserInfo + id,
+    showLoading: false
   })
 }
 export function requestUserMenusByRoleId(id: number) {
   return uuRequest.get<IDataType>({
-    url: LoginAPI.UserMenus + id + '/menu'
+    url: LoginAPI.UserMenus + id + '/menu',
+    showLoading: false
   })
 }

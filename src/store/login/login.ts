@@ -7,6 +7,7 @@ import {
 } from '@/service/login/login'
 import { IAccount } from '@/service/login/type'
 import localCache from '@/utils/cache'
+import router from '@/router'
 
 // Module<S,R> S,R必传 S代表state返回值类型 R代表模块根类型
 const loginModule: Module<ILoginState, IRootState> = {
@@ -14,7 +15,8 @@ const loginModule: Module<ILoginState, IRootState> = {
   state() {
     return {
       token: '',
-      userInfo: {}
+      userInfo: {},
+      userMenus: []
     }
   },
   getters: {},
@@ -26,6 +28,10 @@ const loginModule: Module<ILoginState, IRootState> = {
     // 保存userInfo
     changeUserInfo(state, userInfo: any) {
       state.userInfo = userInfo
+    },
+    // 保存menus
+    changeUserMenus(state, userMenus: any) {
+      state.userMenus = userMenus
     }
   },
   actions: {
@@ -50,6 +56,19 @@ const loginModule: Module<ILoginState, IRootState> = {
       const userMenusResult = await requestUserMenusByRoleId(userInfo.role.id)
       const userMenus = userMenusResult.data.data
       console.log(userMenus)
+      commit('changeUserMenus', userMenus)
+      localCache.setCache('userMenus', userMenus)
+
+      // 4.跳转到首页
+      router.push('/main')
+    },
+    loadLocalLogin({ commit }) {
+      const token = localCache.getCache('token')
+      if (token) commit('changeToken', token)
+      const userInfo = localCache.getCache('userInfo')
+      if (userInfo) commit('changeUserInfo', userInfo)
+      const userMenus = localCache.getCache('userMenus')
+      if (userMenus) commit('changeUserMenus', userMenus)
     }
   }
 }
