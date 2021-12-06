@@ -7,11 +7,11 @@ switch (process.env.NODE_ENV) {
     BASE_NAME = 'dev'
     break
   case 'production':
-    BASE_URL = 'http://coderwhy.org/prod'
+    BASE_URL = 'http://152.136.185.210:5000'
     BASE_NAME = 'prod'
     break
   default:
-    BASE_URL = 'http://coderwhy.org/test'
+    BASE_URL = 'http://152.136.185.210:5000'
     BASE_NAME = 'test'
     break
 }
